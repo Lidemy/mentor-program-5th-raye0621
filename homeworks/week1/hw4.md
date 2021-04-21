@@ -7,13 +7,14 @@
    - 它會在檔案中新增一個`.git`檔案來幫助儲存版本控制的紀錄，所以如果用錯資料夾想要取消的話可以使用`rm -rf .git` 。
 4. 如果有不需進行版本控制的檔案( EX: 賽程表)，建立一個檔案並把那些檔案寫進去
     `touch .gitignore` 再 `vim .gitignore` 輸入檔案名稱。
-5. 把資料夾裡面所有檔案加入暫存區中 `git add.`。
+5. 把資料夾裡面所有檔案加入暫存區中 `git add .`。
    - 可以想像 git 中，你對檔案做任何事情(新增、修改、刪除)，它都會把這件「事情」跟檔案放入暫存區，之後等你確定後才可以把暫存區的檔案確立成一個版本。
    - 而一開始什麼版本都沒有的時候當然也要把你版本中所有檔案先加入暫存區。
    - 也可以用`git add <file name>`分別加入暫存區。
 6. 將暫存區的檔案建立版本控制`git commit -m <版本描述>`。
    - 將暫存區的檔案放入 repository (儲存庫) 並幫 commit ( 版本 ) 描述，可以描述你這版做了什麼。
    - 建立完版本控制後這就是你的第一個版本，之後如要建立其他版本，在 `git add ` 完之後記得都要做一次這個動作。
+   - `git commit -am` 可以直接 `git add ` + `git commit -m`，但是僅限於「已追蹤」的檔案，如果有額外新增檔案的話，還是要記得先使用 `git add `將檔案列管。
 
 7. 關於 git 是如何進行版本控制可以參考下圖
    - localrepo ( local repository 本地端檔案庫)，就是我們最後要的各種版本存放的地方。
@@ -120,11 +121,13 @@ Working Directory ➡️ local repo： `git commit -am "commit message"`
     3. push & pull
     可以看成 local repo 跟 remote repo 交流的方式。
     
+
+
     `git push origin main` => push 最新的改變 (本機的 main) 到 github 上 (-u 可以省略)。
 
     `git push origin <branchName>`=> 同理，可以 push 其他 branch 上去。
 
-    如果你人在外地，或是夥伴要和你一起協作，他就需要將在 github 的專案拉到本地端，github 上叫做 pull。
+    如果你人在外地，或是夥伴要和你一起協作，他就需要先將在 github 的專案拉到本地端`git clone <蔡哥笑話專案 in Github>`，這樣他的本地端才能和蔡哥你的 github 連動 (要記得開權限給他他才能做更改給你哦) ，github 上叫做 pull。
 
     `git pull origin main` => 把在 github 上面最新的改變 pull 下來 (若有衝突可參考 branch 有衝突的解法)
     

@@ -10,8 +10,9 @@
 4. 在 Github 上發 pull request，將 week_ merge 進 master
     - 名稱為周次，可以看到新增/更改了甚麼檔案
     - 可以在這發問
-5. 如果有要更改在本地端更改後再 push 即可
+5. 如果 pull request 助教已經改完留下評語但是尚未合併，再本地端改完後再 push 即可
     - 不須再發一次 pull request ，pull request 的本體是 branch
+    - 但如果已經合併了，就需要再 pull request (PR)一次
 6. **檢查完**複製網址，至學習系統繳交作業
     - 可至作業區檢查有無成功
 
