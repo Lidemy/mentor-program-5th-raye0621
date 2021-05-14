@@ -1,24 +1,27 @@
 const request = require('request')
 
-const action = process.argv[2]
-const actionSec = process.argv[3]
-const actionThi = process.argv[4]
 const API_ENDPOINT = 'https://lidemy-book-store.herokuapp.com'
+const [, , action, actionSec, actionThi] = process.argv
 
-if (action === 'list') {
-  listBooks(actionSec)
-} else if (action === 'read') {
-  readBook(actionSec)
-} else if (action === 'delete') {
-  deleteBook(actionSec)
-} else if (action === 'create') {
-  createBook(actionSec)
-} else if (action === 'update') {
-  updateBook(actionSec, actionThi)
-} else {
-  console.log('指令錯誤！ 可用指令：list、read、delete、create、update。')
+switch (action) {
+  case 'list':
+    listBooks(actionSec)
+    break
+  case 'read':
+    readBook(actionSec)
+    break
+  case 'delete':
+    deleteBook(actionSec)
+    break
+  case 'create':
+    createBook(actionSec)
+    break
+  case 'update':
+    updateBook(actionSec, actionThi)
+    break
+  default:
+    console.log('指令錯誤！ 可用指令：list、read、delete、create、update。')
 }
-
 function listBooks() {
   request(
     `${API_ENDPOINT}/books?_limit=20`,
@@ -77,6 +80,10 @@ function deleteBook(id) {
   )
 }
 function createBook(name) {
+  if (!name) {
+    console.log('請輸入書名！')
+    return
+  }
   request.post({
     url: `${API_ENDPOINT}/books`,
     form: {
@@ -103,7 +110,7 @@ function updateBook(id, name) {
       console.log('更新失敗', err)
       return
     }
-    console.log(`id: ${id} , 新名稱：${name}}，更新成功！`)
+    console.log(`id: ${id} , 新名稱：${name}，更新成功！`)
   }
   )
 }
