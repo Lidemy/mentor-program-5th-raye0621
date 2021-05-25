@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>新拖延運動</title>
+  <!-- CSS用 -->
+  <link rel="stylesheet" href="./form_style.css" />
+  <!-- <link rel="stylesheet" href="./style.css" /> -->
+  <!-- 初始化 normalize -->
+  <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+</head>
+<body>
+    <div class="bg debug">
+      <form class="form">
+        <h1>新拖延運動報名表單</h1>
+        
+        <!-- 時間地點 -->
+        <div class="form_block">
+          <p>活動日期：2020/12/10～2020/12/11</p>
+          <p>活動地點：台北市大安區新生南路二段 1 號</p>
+          <p>* 必填</p>
+        </div>
+        <!-- 暱稱 -->
+        <div class="form_block">          
+          <label for="nickname"><h2 class="check_item" check_symbol=" *">暱稱</h2></label>
+          <input type="text" name="nickname" placeholder="您的回答" id="nickname"> 
+        </div>
+        <!-- 電子郵件 -->
+        <div class="form_block">
+          <label for="email" ><h2 class="check_item" check_symbol=" *">電子郵件</h2></label>
+          <input type="email" name="email" placeholder="您的電子郵件" id="email"> 
+        </div>
+        <!-- 手機號碼 -->
+        <div class="form_block">
+          <label for="tel"><h2 class="check_item" check_symbol=" *">手機號碼</h2></label>
+          <input type="tel" name="tel" placeholder="您的手機號碼" id="tel"> 
+        </div>
+        <!-- 報名類型 -->
+        <div class="form_block">
+          <label><h2 class="check_item" check_symbol=" *">報名類型</h2></label>          
+          <div class="radio">
+            <input type="radio" name="sign_type" id="on_bed" checked>
+            <label for="on_bed">躺在床上用想像力實作</label>  
+          </div>
+          <div class="radio">
+            <input type="radio" name="sign_type" id="on_ground">
+            <label for="on_ground">趴在地上滑手機找現成的</label>
+          </div>
+        </div>
+        <!-- 怎麼知道這活動的 -->
+        <div class="form_block">
+          <label for="how_know"><h2 class="check_item" check_symbol=" *">怎麼知道這個活動的？</h2></label>
+          <input type="text" name="how_know" placeholder="您的回答" id="how_know"> 
+        </div>
+        <!-- 其他 -->
+        <div class="form_block">
+          <label for="suggest" class="other">
+            <h2>其他</h2>
+            <p>對活動的一些建議</p>
+          </label>
+          <input type="text" name="suggest" placeholder="您的回答" id="suggest"> 
+        </div>
+        <!-- 提交按鈕 -->
+        <input class="button" type="submit"  value="提交">
+        <p>請勿透過表單送出您的密碼。</p>
+      </form>
+    </div>
+ 
+    <footer class="footer">
+      © 2020 © Copyright. All rights Reserved.
+    </footer>
+
+</body>
+</html>
