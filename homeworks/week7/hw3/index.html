@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>樸實無華的 todolist</title>
+  <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+  <style>
+    * {
+      font-family: '微軟正黑體';
+    }
+
+    body {
+      background: #646464;
+    }
+
+    .app {
+      max-width: 500px;
+      border: solid 1px black;      
+      margin: 50px auto;
+      padding: 30px 4rem;
+      background-color: white;
+    }
+    
+    h1 {
+      text-align: center;
+      font-weight: normal;
+      font-size: 1.9rem;
+    }
+
+    .app_title {
+      text-align: center;
+    }
+
+    .app_title button {
+      margin-left: 7px;
+    }
+
+    .todo {
+      display: flex;
+      align-items: center;
+      margin-top: 12px;
+      padding: 12px;
+    }
+
+    .todo:hover {
+      background: rgba(0,0,0,0.2);
+    }
+
+    .todo_title {
+      flex: 1;
+    }
+
+    .todo_check {
+      width: 20px;
+      height: 20px;
+      margin-right: 8px;
+    }
+
+    .todo.done .todo_title {
+      text-decoration: line-through;
+    }
+  </style>
+
+</head>
+<body>
+
+  <div class="app">
+    <h1>樸實無華的 ToDoList</h1>
+    <div class="app_title">
+      <input  class="add_todo" type="text" name="add_todo" placeholder="請輸入備忘錄內容"> 
+      <button class="btn_add">新增備忘錄</button>  
+    </div>
+
+    <div class="todo_list">
+      <div class="todo">
+        <input class="todo_check" type="checkbox">
+        <div class="todo_title">助教辛苦了</div>
+        <button class="btn_del">刪除此記事</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // 新增 todo
+    document.querySelector('.btn_add').addEventListener('click', 
+      function(e) {
+        let input_value = document.querySelector('.add_todo')
+        if(!input_value.value) return
+
+        const new_todo = document.createElement('div')
+        new_todo.setAttribute('class', 'todo')
+        new_todo.innerHTML = `        
+          <input class="todo_check" type="checkbox">
+          <div class="todo_title">${escapeHtml(input_value.value)}</div>
+          <button class="btn_del">刪除此記事</button>
+        `
+        document.querySelector('.todo_list').appendChild(new_todo)
+        input_value.value = ''
+      }
+    )
+
+    // 跳脫字元用函式  
+    function escapeHtml(unsafe) {                  
+       return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    // 刪除 使用事件代理人，這樣刪除按鈕才對新增出來的記事有效 event delegation / proxy
+    document.querySelector('.todo_list').addEventListener('click', 
+      function(e) {
+        // 刪除 todo
+        if (e.target.classList.contains('btn_del')) {
+          document.querySelector('.todo_list').removeChild(e.target.closest('.todo'))
+          return
+        }
+
+        // 按格子有刪除線 
+        if (e.target.classList.contains('todo_check')) {
+          if (e.target.checked) {
+            e.target.parentNode.classList.add('done')
+          } else {
+            e.target.parentNode.classList.remove('done')
+          }
+        }
+      }
+    )
+  </script>
+</body>
+</html>
