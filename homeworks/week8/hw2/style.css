@@ -1,0 +1,164 @@
+/* .debug *, .debug {
+  outline: 1px solid gold;
+} */
+* {
+  font-family: 'Cabin Sketch', 'cursive', '微軟正黑體';
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #e7e7e7;
+}
+
+.navbar {
+  box-shadow: -1.4px -1.4px 6px 0 black;
+  position: fixed;
+  z-index: 2;
+  width: 100%;
+}
+
+.navbar .wrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  /* height: 84px; */
+  padding: 0 24px;  
+  background: white;
+  flex-wrap: wrap;
+}
+
+.navbar_site-name {
+  font-size: 3rem;
+  justify-content: center;
+}
+
+.navbar_list {
+  list-style: none;  /*符號消失*/
+  display: flex;     /*轉成row*/
+}
+
+.navbar_list li {
+  font-size: 1.2rem;
+  margin-left: 24px;
+  border-radius: 8px;
+  /* text-decoration: none;  底線拿掉 */
+  color: black;
+  display: block;         
+  padding: 12px 12px;
+  border-radius: 3px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: 0.3s ;
+}
+
+.navbar_list li:hover {
+  background: rgb(37, 37, 37);
+  color: white;
+}
+
+.streams_list {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content:center;
+  margin: 50px;
+  padding-top: 150px;
+}
+
+.stream_card {
+  width: 400px;
+  margin: 20px;
+  cursor: pointer;
+  transition: 0.3s ease-in;
+  box-shadow: 5px 5px 20px 5px rgba(0, 0, 0, 0.2);
+}
+
+.stream_card_empty {
+  width: 400px;
+  margin: 10px;
+}
+
+.stream_card:hover {
+  transform: scale(1.05);
+  filter:brightness(1.2);  /* 變亮一點 */
+  box-shadow: 5px 5px 20px 5px rgba(0, 0, 0, 0.5);
+  opacity: 1;
+}
+
+.stream_img {
+  width: 100%;
+}
+
+.stream_contact_icon {
+  width: 50px;
+  height: 50px;
+  margin: 10px;
+  border-radius: 25px;
+}
+
+.stream_contact {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 5px;
+}
+
+.stream_contact_text {
+  overflow:hidden;
+}
+
+.stream_contact_title { 
+  overflow:hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.stream_contact_streamer {
+  font-size: 0.8rem;
+  padding-top: 0.5rem;
+}
+
+.stream_contact_title, .stream_contact_streamer {
+  font-family: '微軟正黑體';
+}
+
+@media(max-width: 768px) {
+  .navbar {
+    position: relative;
+  }
+
+  .navbar_list {
+    flex-direction: column;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .navbar .wrapper {
+    padding: 0px;
+  }
+
+  .navbar_list li {
+    width: 100%;
+    margin: 0px;
+    text-align: center;
+    font-size: 1.5rem;
+    border: none;
+  }
+
+  .navbar_list li:hover {
+    background: rgb(37, 37, 37);
+    color: white;
+  }
+
+  .navbar_site-name {
+    font-size: 2.5rem;
+    justify-content: center;
+    margin: 10px;
+  }
+
+  .streams_list {
+    padding-top: 50px;
+  }
+} 
