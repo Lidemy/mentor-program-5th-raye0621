@@ -1,0 +1,269 @@
+/* .debug *, .debug {
+      outline: 1px solid gold;
+} */
+
+* {
+  font-family: 微軟正黑體;
+}
+
+/* navbar 導覽列 */
+.navbar {
+  box-shadow: -1.4px -1.4px 6px 0 #97a2a0;
+}
+
+.navbar .wrapper {
+  display: flex;                    /*左右並排*/
+  justify-content: space-between;   /*左右兩邊推開*/
+  align-items: center;              /*上下對齊*/
+  height: 84px;
+  padding: 0 24px;  
+  background: white;
+}
+
+.navbar_site-name {
+  font-size: 36px;
+  color: #489846
+}
+
+.navbar_list {
+  list-style: none;  /*符號消失*/
+  margin: 0;         /*預設有 margin 殺掉*/
+  padding: 0;
+  display: flex;     /*轉成row*/
+  font-size: 18px;
+}
+
+.navbar_list li {
+  margin-left: 24px;
+  border-radius: 8px;
+  transition: background 0.3s ease-in;
+}
+
+.navbar_list li.active, .navbar_list li:hover {   /*導覽列滑鼠移到的效果*/
+  background-color: #ff7286;
+}
+
+.navbar_list li.active a , .navbar_list li a:hover{   /*導覽列滑鼠移到的效果*/
+  color: white;
+}
+
+.navbar_list li a {
+  text-decoration: none;  /*底線拿掉*/
+  color: black;
+  display: block;         /*這兩個使得整個按鈕都可以點*/
+  padding: 12px 12px;
+}
+
+/* 封面圖片 */
+.wrapper {
+  max-width: 1920px;
+  padding: 0px 50px;      /*讓兩旁的字不會貼齊到旁邊*/
+}
+
+.section_lotte h1 {
+  font-size: 60px;
+  color: white;
+  font-weight: bold;
+  margin: 0;
+  /* position: relative; */
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  /* display: inline-block; */
+  transform: translate(-50%, -50%);
+  position :absolute;
+}
+/* 抽獎用 CSS */
+.section_lotte {
+  position: relative;
+  height: 766px;
+}
+
+.letto_origin {
+  background: url(./img/bg.jpg) center/cover no-repeat;
+}
+
+.letto_first {
+  background: url(./img/first.png) center/cover no-repeat;
+}
+
+.letto_second {
+  background: url(./img/second.jpg) center/cover no-repeat;
+}
+
+.letto_third {
+  background: url(./img/third.jpg) center/cover no-repeat;
+}
+
+.letto_none {
+  background: url(./img/none.jpg) center/cover no-repeat;
+}
+
+.letto_wrong {
+  background: url(./img/wrong.jpg) center/cover no-repeat;
+}
+
+.hidden_box {
+  visibility:hidden;
+}
+
+.lotte_box {
+  position :absolute;
+  width: 500px;
+  height: 560px;
+  border-radius: 16px;
+  background-color: white;
+  top: 55px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+}
+
+.lotte_box h2 {
+  font-size: 24px;
+  text-align: center;
+  color: #5ec1b6;
+  margin: 40px 0px 20px 0px;
+}
+
+.lotte_text {
+  display: flex;
+  margin: 0px 20px;
+  padding: 20px 0px;
+  border-bottom: dotted 1px #cdcdcd;
+}
+
+.lotte_text_title {
+  min-width: 90px;
+  margin-right: 22px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.lotte_text_content {
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  margin-right: 37px;
+}
+
+.lotte_text_bottom {
+  text-align: center;
+  height: 100%;
+  justify-content:center;
+}
+
+.btn_lotte {
+  width: 400px;
+  height: 55px;
+  margin-top: 28px;
+  border-radius: 8px;
+  color: white;
+  font-size: 20px;
+  background-color: #e62a45;
+  border: none;
+  cursor: pointer;
+}
+/* 中獎頁面 */
+.lotte_draw {
+  position: absolute;
+  transform: translate(-50%, 0%);
+  left: 50%;
+  text-align: center;
+  top: 190px;
+  width: 100%;
+}
+
+.lotte_draw h2{
+  font-size: 36px;
+  letter-spacing: 0.5px;
+  font-weight: normal;
+  margin-bottom: 30px;
+}
+/* footer */
+.footer_bottom {
+  padding: 12px 0px;
+  background-color: #35564b;
+  text-align: center;
+  color: white;
+  font-size: 16px;
+  padding: 12px;
+}
+
+.footer_top {
+  background-color: #e8efee;
+  padding: 32px;
+  color: #484848;
+}
+
+.footer_top .wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer_info div + div , .footer_site + div {
+  margin-top: 10px;
+}
+
+.footer_top {
+  font-size: 14px;
+}
+
+.footer_site {
+  font-size: 36px;
+  color: #489846;
+}
+
+.footer_info {
+  margin-right: 16px;
+}
+
+@media(max-width: 768px) {
+  
+  /* navbar 導覽列 */
+  .navbar .wrapper {
+    height: 108px;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0;  
+  }
+
+  .navbar_list {
+    display: flex;
+    width: 100%;
+  }
+
+  .navbar_list li {
+    flex: 1;  /*均分??*/
+    margin-left: 0;
+    text-align: center;
+    border-radius: 0;
+  }
+
+  .navbar_site-name {
+    margin-top: 10px;
+  }
+
+  /* 封面圖片 */
+  /* .section_lotte {
+    height: 290px;
+  } */
+
+  /* 引文的按鈕 */
+  .buttons {
+    display: flex;
+    justify-content: center;
+  }
+  .button {
+    font-size: 1rem;    
+  }
+
+  /* footer */
+  .footer_top .wrapper {
+    flex-direction: column-reverse;
+  }
+
+  .footer_info {
+    margin-right: 0;
+    margin-top: 16px;
+  }
+}
