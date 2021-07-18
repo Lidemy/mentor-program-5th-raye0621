@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>TodoList</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    <style>
+      .btn-delete {
+        opacity: 0;
+      }
+      .todo:hover .btn-delete {
+        opacity: 1;
+      }
+
+      input[type=checkbox]:checked ~ label {
+        text-decoration: line-through;
+        color: rgba(0,0,0,0.3);
+      }
+
+      .todo__content-wrapper {
+        flex: 1;
+      }
+
+
+      .options div, .clear-all {
+        cursor: pointer;
+        border-radius: 6px;
+        padding: 4px;
+        border: 2px solid transparent;
+      }
+
+      .options div.active {
+        border-color: rgba(255, 0, 0, 0.3);
+      }
+
+      .options div:hover {
+        border-color: rgba(255, 0, 0, 0.5);
+      }
+
+      .todo {
+        display: flex;
+      }
+
+      /* .hide {
+        display: none !important;
+      } */
+    </style>
+  </head>
+  <body>
+    <div class="container col-lg-5">
+      <div class="row">
+        <div class="col-lg-12"> 
+
+          <div class="text-center mt-1">
+            <h1 >Todo List</h1>
+          </div>
+  
+          <div class="input-group mb-3">
+            <input type="text" class="input-todo form-control" placeholder="Todo" aria-label="Recipient's username" aria-describedby="button-addon2">
+            <button class="btn-add btn btn-outline-secondary" type="button" id="button-addon2">新增</button>
+          </div>
+  
+          <div class="todos list-group">
+            <!-- <div class="todo list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+              <div class="todo__content-wrapper custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="todo-1">
+                <label class="todo__content custom-control-label" for="todo-1">todo1</label>
+              </div>
+              <button type="button" class="btn-delete btn btn-danger">刪除</button>
+            </div> -->
+          </div>
+
+          <div class="info mt-1 d-flex justify-content-between align-items-center">
+            
+            <div><span class="uncomplete-count">0</span> 個未完成</div>
+            <div class="options d-flex">
+              <div class="active" data-filter="all">全部</div>
+              <div class="ml-2" data-filter="uncomplete">未完成</div>
+              <div class="ml-2" data-filter="done">已完成</div>
+            </div>
+            <div class="clear-all">
+              移除已完成待辦事項
+            </div>
+          </div>
+          <button type="button" class="btn btn-save btn-primary">儲存</button>
+  
+        </div>
+
+        
+
+
+      </div>
+    </div>
+    
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <script>
+      let id = 1
+      let todoCount = 0
+      let uncompleteTodoCount = 0
+      const template = `
+        <div class="todo list-group-item list-group-item-action justify-content-between align-items-center {todoClass}">
+          <div class="todo__content-wrapper custom-control custom-checkbox">
+            <input type="checkbox" class="check-todo custom-control-input" id="todo-{id}">
+            <label class="todo__content custom-control-label" for="todo-{id}"> {content} </label>
+          </div>
+          <button type="button" class="btn-delete btn btn-danger">刪除</button>
+        </div>
+      `
+
+      const searchParams = new URLSearchParams(window.location.search)
+      const todoId = searchParams.get('id')
+
+      if (todoId) {
+        $.getJSON('http://mentor-program.co/mtr04group4/raye/week12/hw2/get_todo.php?id=' + todoId, function(data) {
+          const todos = JSON.parse(data.data.todo)
+          restoreTodos(todos)
+        })
+      }
+
+      function restoreTodos(todos) {
+        if (todos.length === 0) return
+        id = parseInt(todos[todos.length - 1].id) + 1
+        for(let i=0; i<todos.length; i++) {
+          const todo = todos[i]
+          $('.todos').append(
+            template
+              .replace('{content}', escape(todo.content))
+              .replace(/{id}/g, todo.id)
+              .replace('{todoClass}', todo.isDone ? 'checked' : '')
+          )
+          todoCount++
+          if (todo.isDone) {
+            $('#todo-' + todo.id).prop('checked', true)
+          } else {
+            uncompleteTodoCount++
+          }
+        }
+        updateCounter()
+      }
+
+      $('.btn-add').click( (e) => {
+        addTodo()
+      })
+
+      $('.input-todo').keydown(e => {
+        if (e.key === 'Enter') {
+          addTodo()
+        }
+      })
+
+      $('.todos').on('click', '.btn-delete', (e) => {
+        $(e.target).parent().remove()
+        todoCount--
+        const isChecked = $(e.target).parent().find('.check-todo').is(':checked')
+        if (!isChecked) {
+          uncompleteTodoCount--
+        }
+        updateCounter()
+      })
+
+
+      $('.todos').on('change', '.check-todo', (e) => {
+        const target = $(e.target)
+        const isChecked = target.is(":checked")
+        if (isChecked) {
+          target.parents('.todo').addClass('checked')
+          uncompleteTodoCount--
+        } else {
+          target.parents('.todo').removeClass('checked')
+          uncompleteTodoCount++
+        }
+        updateCounter()        
+      })
+
+      // 刪除已完成，移除代辦事項，第一種寫法
+      // $('.clear-all').click( () => {
+      //   $('.todo.checked').each(function(i, el) {
+      //     todoCount--
+      //     el.remove()
+      //   })
+      // })
+
+      // 刪除已完成，移除代辦事項，第二種寫法
+      $('.clear-all').click( () => {
+        todoCount -= $('.todochecked').length
+        console.log(todoCount)
+        $('.todo.checked').remove()
+      })
+
+
+      $('.options').on('click', 'div', e => {
+        const target = $(e.target)
+        // 可以拿到綁在上面的屬性
+        const filter = target.attr('data-filter')
+        // 標籤
+        $('.options div.active').removeClass('active')
+        target.addClass('active')
+        if (filter === 'all') {
+          $('.todo').show()          
+        } else if (filter === 'uncomplete') {
+          $('.todo').show()
+          $('.todo.checked').hide()
+        } else {
+          $('.todo').hide()
+          $('.todo.checked').show()
+        }
+      })
+
+      // 從 UI 儲存狀態 + 寫入功能
+      $('.btn-save').click(() => {
+        let todos = []
+        $('.todo').each((i, element) => {
+          const input = $(element).find('.check-todo')
+          const label = $(element).find('.todo__content')
+          todos.push({
+            id: input.attr('id').replace('todo-', ''),
+            content: label.text(),
+            isDone:$(element).hasClass('checked')
+          })
+        })
+        const data = JSON.stringify(todos)
+        $.ajax({
+          type: 'POST',
+          url: 'http://mentor-program.co/mtr04group4/raye/week12/hw2/add_todo.php',
+          data: {
+            todo: data
+          },
+          success: function(res) {
+            const respId = res.id
+            window.location = 'index.html?id=' + respId
+          },
+          error: function() {
+            alert('Err Q_Q')
+          }
+        })
+      })
+
+      function updateCounter() {
+        $('.uncomplete-count').text(uncompleteTodoCount)
+      }
+
+      // 新增TODO
+      function addTodo() {
+        const value = $('.input-todo').val()
+        if(!value) return
+        $('.todos').append(
+          template
+            .replace('{content}', escape(value))
+            .replace(/{id}/g, id)
+        )
+        id += 1
+        todoCount++
+        uncompleteTodoCount++
+        updateCounter()
+        $('.input-todo').val('')
+      }
+
+      // escape 函式
+      function escape(string) {
+        const map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#x27;',
+            "/": '&#x2F;',
+        };
+        const reg = /[&<>"'/]/ig;
+        return string.replace(reg, (match)=>(map[match]));
+      }
+
+    </script>
+  </body>
+</html>
