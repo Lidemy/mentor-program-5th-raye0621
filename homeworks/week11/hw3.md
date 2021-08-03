@@ -61,7 +61,10 @@ content 那份資料看起來很奇怪，但是一但被我們的 SQL query 執�
 
 - 會發生這個 SQL Injection 問題的原因就是將前端的資料直接給 SQL query 執行
 
-- 解決方法就是將指令轉成字串 
+- 解決方式 Prepared Statement 
+
+Prepared Statement 簡單來說就是就是將指令轉成字串
+
 透過 MySQL 或是 PHP 把指令轉成字串，在執行時不把它當作 SQL query 的一部份，而是純粹的資料。
 
 

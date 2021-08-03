@@ -4,6 +4,10 @@
   require_once("utils.php");
   require_once("check_permission.php");
 
+  if (empty($_GET['id'])) {
+    header("Location: index.php");
+    die();
+  }
   $id = intval($_GET['id']);
 
   $stmt = $conn->prepare(
@@ -20,7 +24,11 @@
     die('Error:' . $conn->error);
   }
   $result = $stmt->get_result();
-  $row = $result->fetch_assoc()
+  $row = $result->fetch_assoc();
+  if (empty($row)) {
+    header("Location: index.php");
+    die();
+  }
 ?>
 
 <!DOCTYPE html>
