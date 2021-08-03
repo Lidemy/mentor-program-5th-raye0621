@@ -1,44 +1,45 @@
 <?php
-  session_start();
-  require_once("conn.php");
-  require_once("utils.php");
+session_start();
+require_once("conn.php");
+require_once("utils.php");
 
-  $username = NULL;
-  $user = NULL;
-  if (!empty($_SESSION['username'])) {
-    $username = $_SESSION['username'];
-    $user = getUserFromUsername($_SESSION['username']);
-    $nickname = $user['nickname'];
-  }
+$username = NULL;
+$user = NULL;
+if (!empty($_SESSION['username'])) {
+  $username = $_SESSION['username'];
+  $user = getUserFromUsername($_SESSION['username']);
+  $nickname = $user['nickname'];
+}
 
-  $page = 1;
-  if (!empty($_GET['page'])) {
-    $page = $_GET['page'];
-  }
-  $items_per_page = 5;
-  $offset = ($page - 1) * $items_per_page;
+$page = 1;
+if (!empty($_GET['page'])) {
+  $page = $_GET['page'];
+}
+$items_per_page = 5;
+$offset = ($page - 1) * $items_per_page;
 
-  $stmt = $conn->prepare(
-    "SELECT ".
-      "B.id AS id, B.content as content, B.create_time, ".
-      "U.nickname AS nickname, U.username ".
-    "FROM raye_board AS B ".
-    "LEFT JOIN raye_users AS U ON B.username = U.username ".
-    "WHERE B.is_deleted IS NULL ".
-    "ORDER BY B.id DESC ". 
-    "LIMIT ? OFFSET ? " 
-  );
+$stmt = $conn->prepare(
+  "SELECT " .
+    "B.id AS id, B.content as content, B.create_time, " .
+    "U.nickname AS nickname, U.username " .
+    "FROM raye_board AS B " .
+    "LEFT JOIN raye_users AS U ON B.username = U.username " .
+    "WHERE B.is_deleted IS NULL " .
+    "ORDER BY B.id DESC " .
+    "LIMIT ? OFFSET ? "
+);
 
-  $stmt->bind_param('ii', $items_per_page, $offset);
-  $result = $stmt->execute();
-  if (!$result) {
-    die('Error: ' . $conn->error);
-  }
-  $result = $stmt->get_result();
+$stmt->bind_param('ii', $items_per_page, $offset);
+$result = $stmt->execute();
+if (!$result) {
+  die('Error: ' . $conn->error);
+}
+$result = $stmt->get_result();
 
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -64,7 +65,7 @@
       <?php } ?>
       <div class="board__title">留言板斑</div>
       <?php if ($username) { ?>
-        <div class="board__postby">哈囉！<?php echo $nickname  ?></div>
+        <div class="board__postby">哈囉！<?php echo escape($nickname) ?></div>
         <form class="hide board__nickname-form" method="POST" action="update_user.php">
           <div class="board__update__nickname">
             <label>
@@ -76,20 +77,20 @@
       <?php } ?>
 
       <form action="./handle_add.php" method="POST" class="board__form">
-        <div class="board__form-top">          
+        <div class="board__form-top">
           <?php
-            if (!empty($_GET['errCode'])) {
-              $code = $_GET['errCode'];
-              $msg = 'Error';
-              if ($code === '1') {
-                $msg = '請填寫完整資料';
-              }
-              echo '<span>' . $msg . '<span>';
-            }          
+          if (!empty($_GET['errCode'])) {
+            $code = $_GET['errCode'];
+            $msg = 'Error';
+            if ($code === '1') {
+              $msg = '請填寫完整資料';
+            }
+            echo '<span>' . $msg . '<span>';
+          }
           ?>
-        </div>        
+        </div>
         <textarea name="content" class="board__comment" rows="5"></textarea>
-        
+
         <!-- 如果已經登入但是沒有權限的話 -->
         <?php if ($username && !hasPermission($user, "create", NULL)) { ?>
           <h1>你已被停權</h1>
@@ -99,61 +100,61 @@
           </div>
         <?php } else { ?>
           <h1>請登入以輸入留言</h1>
-        <?php } ?>        
+        <?php } ?>
       </form>
-      <div class="board_divider"></div>      
+      <div class="board_divider"></div>
       <section>
         <?php
-          while($row = $result->fetch_assoc()) {
+        while ($row = $result->fetch_assoc()) {
         ?>
-        <div class="card">
-          <div class="card__avatar"></div>
-          <div class="card__body">
-            <div class="card__info">
-              <span class="card__author"><?php echo escape($row['nickname']) ?> (@<?php echo escape($row['username']) ?>)</span>
-              <span class="card__time"><?php echo escape($row['create_time']) ?></span>
+          <div class="card">
+            <div class="card__avatar"></div>
+            <div class="card__body">
+              <div class="card__info">
+                <span class="card__author"><?php echo escape($row['nickname']) ?> (@<?php echo escape($row['username']) ?>)</span>
+                <span class="card__time"><?php echo escape($row['create_time']) ?></span>
 
-              <?php if (hasPermission($user, "update", $row)) { ?>
-                <a href="update_board.php?id=<?php echo $row['id'] ?>">編輯</a>
-                <a href="handle_delete_board.php?id=<?php echo $row['id'] ?>">刪除</a>
-              <?php } ?>
+                <?php if (hasPermission($user, "update", $row)) { ?>
+                  <a href="update_board.php?id=<?php echo $row['id'] ?>">編輯</a>
+                  <a href="handle_delete_board.php?id=<?php echo $row['id'] ?>">刪除</a>
+                <?php } ?>
+              </div>
+              <div class="card__content"><?php echo escape($row['content']) ?></div>
             </div>
-            <div class="card__content"><?php echo escape($row['content']) ?></div>
           </div>
-        </div>
         <?php
-          }
+        }
         ?>
       </section>
-      <?php 
-        $stmt = $conn->prepare("SELECT COUNT(id) AS count FROM raye_board WHERE is_deleted IS NULL");
-        $result = $stmt->execute();
-        $result = $stmt->get_result();
-        $row = $result->fetch_assoc();
-        $count = $row['count'];
-        $total_page = ceil($count / $items_per_page);
+      <?php
+      $stmt = $conn->prepare("SELECT COUNT(id) AS count FROM raye_board WHERE is_deleted IS NULL");
+      $result = $stmt->execute();
+      $result = $stmt->get_result();
+      $row = $result->fetch_assoc();
+      $count = $row['count'];
+      $total_page = ceil($count / $items_per_page);
       ?>
       <div class="page_info">
-        <span>總共有 <?php echo $count ?> 筆留言，頁數：</span>
-        <span><?php echo $page ?> / <?php echo $total_page ?></span>
+        <span>總共有 <?php echo escape($count) ?> 筆留言，頁數：</span>
+        <span><?php echo escape($page) ?> / <?php echo escape($total_page) ?></span>
       </div>
       <div class="paginator">
-        <?php if ($page != 1) { ?> 
+        <?php if ($page != 1) { ?>
           <a href="index.php?page=1">首頁</a>
-          <a href="index.php?page=<?php echo $page - 1 ?>">上一頁</a>
+          <a href="index.php?page=<?php echo escape($page - 1) ?>">上一頁</a>
         <?php } ?>
         <?php if ($page != $total_page) { ?>
-          <a href="index.php?page=<?php echo $page + 1 ?>">下一頁</a>
-          <a href="index.php?page=<?php echo $total_page ?>">最後一頁</a> 
+          <a href="index.php?page=<?php echo escape($page + 1) ?>">下一頁</a>
+          <a href="index.php?page=<?php echo escape($total_page) ?>">最後一頁</a>
         <?php } ?>
       </div>
 
     </div>
   </main>
   <script>
-    var btn = document.querySelector('.update_nickname')
+    const btn = document.querySelector('.update_nickname')
     btn.addEventListener('click', function() {
-      var form = document.querySelector('.board__nickname-form')
+      const form = document.querySelector('.board__nickname-form')
       form.classList.toggle('hide')
     })
   </script>
