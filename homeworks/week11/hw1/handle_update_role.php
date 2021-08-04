@@ -14,7 +14,7 @@
   $user = getUserFromUsername($username);
   
   // 管理員不能管理自己的權限，一日管理員終身管理員。
-  if ($user['id'] !== $id) {
+  if ($user['id'] !== $id && $user['role'] === 'ADMIN') {
     $sql = "UPDATE raye_users SET role = ? WHERE id = ?";
   } else {
     header("Location: admin.php");

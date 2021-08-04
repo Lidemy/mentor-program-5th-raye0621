@@ -11,7 +11,7 @@
     $nickname = $user['nickname'];
   }
 
-  if ($user === NULL || $user['role'] !== 'ADMIN') {
+  if (!$user || $user['role'] !== 'ADMIN') {
     header('Location: index.php');
     exit;
   }
@@ -84,9 +84,9 @@
   </main>
 
   <script>
-    var btn = document.querySelector('.update_nickname')
+    const btn = document.querySelector('.update_nickname')
     btn.addEventListener('click', function() {
-      var form = document.querySelector('.board__nickname-form')
+      const form = document.querySelector('.board__nickname-form')
       form.classList.toggle('hide')
     })
   </script>

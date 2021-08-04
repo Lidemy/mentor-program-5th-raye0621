@@ -15,11 +15,10 @@
   $sql = "UPDATE raye_board SET is_deleted=1 WHERE id = ? AND username = ?";
   if (isAdmin($user)) {
     $sql = "UPDATE raye_board SET is_deleted=1 WHERE id = ?";
-  }
-  $stmt = $conn->prepare($sql);
-  if (isAdmin($user)) {
+    $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $id);
   } else {
+    $stmt = $conn->prepare($sql);
     $stmt->bind_param('is', $id, $username);
   }
   $result = $stmt->execute();
@@ -28,4 +27,3 @@
   }
 
   header("Location: index.php");
-?>

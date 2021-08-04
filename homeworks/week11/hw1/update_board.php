@@ -3,14 +3,11 @@
   require_once("conn.php");
   require_once("utils.php");
   
-  $id = $_GET['id'];
-  $username = NULL;
-  $user = NULL;
-  if (!empty($_SESSION['username'])) {
-    $username = $_SESSION['username'];
-    $user = getUserFromUsername($_SESSION['username']);
-    $nickname = $user['nickname'];
+  if (empty($_GET['id'])) {
+    header("Location: index.php");
+    die();
   }
+  $id = $_GET['id'];
 
   $stmt = $conn->prepare("SELECT * FROM raye_board WHERE id = ?");
   $stmt->bind_param("i", $id);

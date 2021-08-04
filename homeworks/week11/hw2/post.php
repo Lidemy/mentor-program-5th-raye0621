@@ -3,6 +3,10 @@
   require_once("conn.php");
   require_once("utils.php");
 
+  if (empty($_GET['id'])) {
+    header("Location: index.php");
+    die();
+  }
   $id = intval($_GET['id']);
 
   $stmt = $conn->prepare(
@@ -15,12 +19,12 @@
 
   $stmt->bind_param('i', $id);
   $result = $stmt->execute();
-  if (!$result) {
-    die('Error:' . $conn->error);
-  }
   $result = $stmt->get_result();
-  $row = $result->fetch_assoc()
-
+  $row = $result->fetch_assoc();
+  if (empty($row)) {
+    header("Location: index.php");
+    die();
+  }
 ?>
 
 <!DOCTYPE html>

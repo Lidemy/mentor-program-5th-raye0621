@@ -16,11 +16,10 @@
   $sql = "UPDATE raye_board SET content = ? WHERE id = ? AND username = ?";
   if (isAdmin($user)) {
     $sql = "UPDATE raye_board SET content = ? WHERE id = ?";
-  }
-  $stmt = $conn->prepare($sql);
-  if (isAdmin($user)) {
+    $stmt = $conn->prepare($sql);
     $stmt->bind_param('si', $content, $id);
   } else {
+    $stmt = $conn->prepare($sql);
     $stmt->bind_param('sis', $content, $id, $username);
   }
 
