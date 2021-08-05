@@ -1,0 +1,211 @@
+/* .debug *, .debug {
+  outline: 1px solid gold;
+} */
+
+body {
+  background-color: rgb(230, 230, 230);
+}
+
+* {
+  box-sizing: border-box;
+  font-family: '微軟正黑體';
+}
+
+.prompt {
+	background-color: pink;
+	color: rgb(255, 51, 51);
+	text-align: center;
+	margin: 0 ;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+.board {
+  margin: 20px auto;
+  max-width: 600px;
+  width: 100%;
+  background-color: white;
+  padding: 20px;
+  border-radius: 3px;
+}
+
+.board__btn {
+  padding: 5px 25px;
+  margin-bottom: 20px;
+  background-color: white;
+  border-radius: 3px;
+  border: 1px solid #c2dffb;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.board__title {
+  font-size: 2rem;
+  text-align: center;
+  margin: 30px 0;
+}
+
+.board__comment {
+  width: 100%;
+  padding: 5px;
+  margin: 10px 0 ;
+  resize: none;
+  border-color: #c2dffb;
+}
+
+.board__form-top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.board__field {
+  margin: 10px 0;
+  text-align: center;
+}
+
+.board__field-errMsg {
+  margin: 10px 0;
+  text-align: center;
+  color: red;
+}
+
+.board__form-top span {
+  color: red;
+  font-weight: bold;
+}
+
+.board__button-input {
+  padding: 5px 25px;
+  background-color: white;
+  border-radius: 3px;
+  border: 1px solid #c2dffb;
+  cursor: pointer;
+  transition: background 0.3s ease-in;
+}
+.board__button-input:hover {
+  background-color: #c2dffb;
+  border: 1px solid #c2dffb;
+}
+.board__button {
+  text-align: right;
+}
+
+.board_divider {
+  margin: 30px 10px;
+  height: 1px;
+  background: #cccccc;
+}
+
+.card {
+  display: flex;
+  padding: 15px 0px;
+  border-bottom: 1px solid #c2dffb;
+  min-height: 100px;
+}
+
+.card__avatar {
+  min-width: 50px;
+  width: 50px;
+  height: 50px;
+  background-color: #c2dffb;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.card__author {
+  margin-right: 25px;
+  display: inline-block;
+  font-weight: bold;
+  color: #399fff;
+  font-size: 1rem;
+
+}
+
+.card__time {
+  color: #aaaaaa;
+  font-size: 0.9rem;
+}
+
+.card__content {
+  padding-top: 12px;
+  line-height: 1.3rem;
+  white-space: break-spaces;
+}
+
+.card__info a {
+  text-decoration: none;
+  flex: inline-block;
+  color: #399fff;
+}
+
+.board__update__nickname {
+  margin-top: 10px;
+}
+
+.hide {
+  display: none;
+}
+
+.page_info {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.paginator {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.paginator a {
+  text-decoration: none;
+  color: #5c9edc;
+  border: 1px solid #5c9edc;
+  padding: 10px;
+}
+
+/* 管理後臺 */
+.admin__board {
+  margin: 20px auto;
+  max-width: 1200px;
+  width: 100%;
+  background-color: white;
+  padding: 20px;
+  border-radius: 3px;
+}
+
+table {
+  margin: 0 auto;
+  width: 100%;
+  border: 0;
+  border-collapse: collapse;
+  text-align: center;
+  border-radius: 8px;
+}
+
+tr {
+  border-bottom:  1px solid #333;
+}
+
+td {
+  border: 1px solid #333;
+  margin: 0 auto;
+  width: 30%;
+  height: 2rem;
+}
+
+.admin__board__id, .admin__board__role {
+  width: 10%;
+}
+
+.admin__board__update__role {
+  width: 20%;
+}
+
+.admin__board__update__role a {
+  display: inline-block;
+  margin: 5px;
+  color: rgb(109, 0, 0);
+  text-decoration: none;
+  font-weight: bold;
+}
