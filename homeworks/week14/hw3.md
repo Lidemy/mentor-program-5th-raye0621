@@ -30,6 +30,29 @@ DNS (Domain Name System) ，也就是網域名稱系統，它將人們可讀取�
 
 以上例子為多筆請求搶購著為數不多的票或商品，所以需要 lock 這個機制，此種機制使對資料庫的特定資料的訪問變的順序化，以確保不同的請求無法同時更新資料庫中的相同資料，必須等待上一筆結束存取、結束對該資料的請求動作之後，才會輪到下一筆請求。
 
+### 而關於LOCK 有分兩種圍度
+
+1. Lock 範圍
+範圍的話比較細，有關於資料庫的詳細組成 table、key 等等，就無法贅述
+
+2. Lock 類型
+類型的話有許多種，這邊稍微提一下，真正用法請未來的我在去查，目前理解力不足。
+
+Shared Locks (s)	共享鎖定
+Update Locks (U)	更新鎖定
+Exclusive Locks (X)		獨佔鎖定
+Intent Locks (I)	意圖鎖定
+Schema Locks (Sch)	綱要鎖定
+Bulk Update Locks (BU)	大量更新鎖定
+Conversion Locks	交談鎖定
+Key-Range Locks 	鍵值範圍鎖定
+
+資料來源：
+
+[資料庫的交易鎖定 Locks](https://www.qa-knowhow.com/?p=383)
+
+這篇不錯 [淺談SqlServer Lock(一)](https://ithelp.ithome.com.tw/articles/10254610)
+
 
 ## NoSQL 跟 SQL 的差別在哪裡？
 ### SQL 一般指的是關聯式資料庫 
