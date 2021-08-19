@@ -17,9 +17,8 @@ console.log(5)
 
 流程圖
 
-!(我應該要是 gif)[https://i.imgur.com/eoSQPyO.gif]
 
-!(我應該要是 gif)[https://github.com/Lidemy/mentor-program-5th-raye0621/blob/week16/homeworks/week16/HW1.gif?raw=true]
+!(我應該要是 gif)[https://raw.githubusercontent.com/Lidemy/mentor-program-5th-raye0621/week16/homeworks/week16/HW1.gif]
 
 [gif 每頁](https://docs.google.com/presentation/d/1uUsxz34jOTUG0HXFa51tt9s_iyK-QUEn/edit?usp=sharing&ouid=109048704341398689294&rtpof=true&sd=true)
 
