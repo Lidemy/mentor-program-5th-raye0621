@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <%- include('template/head') %>
+</head>
+
+<body>
+
+	<%- include('template/navbar') %>
+
+	<%- include('template/title') %>
+
+  <div class="container-wrapper">
+    <div class="container">
+      <div class="admin-posts">
+
+        <% comments.forEach(function(comment) { %>
+        <div class="admin-post">
+          <div class="admin-post__title">
+            <%= comment.title %>
+          </div>
+          <div class="admin-post__info">
+            <div class="admin-post__created-at">
+              <%= comment.createdAt %>
+            </div>
+            <a class="admin-post__btn" href="/update_post/<%= comment.id %>">
+              編輯
+            </a>
+            <a class="admin-post__btn" href="/delete/<%= comment.id %>" >
+              刪除
+            </a>
+          </div>
+        </div>
+        <% }) %>
+
+      </div>
+    </div>
+  </div>
+  <footer>Copyright © 2020 Who's Blog All Rights Reserved.</footer>
+</body>
+</html>
