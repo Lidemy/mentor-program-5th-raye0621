@@ -10,7 +10,6 @@ const Board = styled.div`
   height: 32px;
   position: relative;
 
-  // 直線
   &::before {
     content: '';
     height: 100%;
@@ -19,11 +18,9 @@ const Board = styled.div`
     position: absolute;
     top: 0;
     left: 50%;
-    // 上下邊界
     ${props => props.row === 0 && `height: 50%; top: 50%;`};
     ${props => props.row === 18 && `height: 50%;`}
   }
-  // 橫線
   &::after {
     content: '';
     width: 100%;
@@ -31,7 +28,6 @@ const Board = styled.div`
     background: #5b5765;
     position: absolute;
     top: 50%;
-    // 左右邊界
     ${props => props.col === 0 && `width: 50%; left: 50%;`};
     ${props => props.col === 18 && `width: 55%;`};
   }
