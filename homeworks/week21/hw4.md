@@ -1,9 +1,3 @@
-https://raye0621.github.io/react-form-test/
-
-https://raye0621.github.io/react-gobang-test/
-
-https://raye0621.github.io/react-first-todoList-test/
-
 ## 為什麼我們需要 React？可以不用嗎？
 
 React 經由兩個核心概念 `state` 與 `component` 使我們建立的 APP 的維護性和可重用性都大大提升。
