@@ -9,13 +9,11 @@ function useBoard() {
   const [squares, setSquares] = useState(Array(SIZE).fill(Array(SIZE).fill(null)))
   const [winner, setWinner] = useState(null)
 
-  // 紀錄最後一步
   const animateStart = useRef(false)
   const blackIsNext = useRef(true)
   const lastX = useRef()
   const lastY = useRef()
 
-  // 最重要的點擊事件
   function handleChessClick(position) {
     const { x, y } = position
     if (squares[y][x] || winner || !animateStart) return
@@ -28,21 +26,15 @@ function useBoard() {
     blackIsNext.current = !blackIsNext.current
   }
 
-  // 再一局
   function handleReplay() {
     setSquares(Array(SIZE).fill(Array(SIZE).fill(null)))
     setWinner(null)
     blackIsNext.current = true
   }
 
-  // 動畫效果，點擊之後也包含棋盤歸零、動畫實現，只有一方勝利才能點
+  // 動畫效果，點擊之後也包含棋盤歸零、動畫實現，只有一方勝利後才能點
   function onClickAnimate() {
-    console.log(winner)
-    console.log(blackIsNext.current)
-
     if (winner === null) return
-    console.log(winner)
-    console.log(blackIsNext.current)
     if (!animateStart) return
     animateStart.current = true
 
@@ -55,13 +47,12 @@ function useBoard() {
         setWinner(null)
 
         if (i === len - 1) {
-          console.log('i === len')
           endDoing()
         }
       }, i * 100)
     }
 
-    // 動畫結束要做的事歸零，好麻煩
+    // 動畫結束要做的事
     function endDoing() {
       setWinner(null)
       blackIsNext.current = true

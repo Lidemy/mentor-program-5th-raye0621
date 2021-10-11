@@ -9,21 +9,14 @@ import GoBangInfo from './GoBangInfo'
 
 const GobangItemWrapper = styled.div`
   display: flex;
-  // flex-direction: row;
   justify-content: center;
-  // text-align: center;
   margin-top: 77px;
 `
 const GobangBoard = styled.div`
-  // white-space:nowrap;
   padding: 10px;
-  // width: 760px;  寬高用固定的，主要用 pd
-  // height: 760px;
-  // background-color: #fff7cd;
   border:  solid 1px rgb(56, 56, 56) ;
   border-width: 3px 2px 2px 1.7px;
   border-radius: 99% 1% 99% 1% / 1% 99% 1% 99%; 
-  /* 做出傾斜的視覺感 */
   margin-right: 50px;
 `
 
@@ -48,7 +41,6 @@ function App() {
                 <Row key={y}>
                   {
                     row.map((col, x) => {
-                      // 把座標包成 position
                       const posttion = {
                         x,
                         y

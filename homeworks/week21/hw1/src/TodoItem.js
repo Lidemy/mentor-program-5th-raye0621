@@ -19,7 +19,7 @@ const Button = styled.button`
   padding: 10px 20px;
   font-size: 1rem;    
   border-radius: 3px;
-  cursor: pointer;            /* 點擊效果 */
+  cursor: pointer; 
   transition: transform 0.2s;
   border: aliceblue;
 `
@@ -65,7 +65,7 @@ const TodoFilter = styled.div`
     padding: 10px 20px;
     font-size: 1rem;    
     border-radius: 3px;
-    cursor: pointer;            /* 點擊效果 */
+    cursor: pointer;
     transition: transform 0.2s;
     border: aliceblue;
     background-color: #e5ffff;
@@ -126,7 +126,6 @@ const DeleteAllButton = styled(Button)`
   width: 30%;
 `
 
-// 每一個代辦 Todo
 function Todo({ todo, handleDeleteTodo, handleToggleClick, handleEditTodo, handleOnblur }) {
   const handleToggleIsDone = () => {
     handleToggleClick(todo.id)
@@ -152,8 +151,7 @@ function Todo({ todo, handleDeleteTodo, handleToggleClick, handleEditTodo, handl
   )
 }
 
-// let id = 2
-function TodoItem({ content }) {
+function TodoItem() {
   const [todos, setTodos] = useState([
     {
       id: 1,
@@ -214,7 +212,6 @@ function TodoItem({ content }) {
     setTodos([])
   }
 
-  // 編輯 onBlur 1/2
   const handleOnblur = id => {
     if (!edit.trim()) return
     setTodos(todos.map(todo => {
@@ -263,22 +260,17 @@ function TodoItem({ content }) {
         Todo
       </TodoTitle>
 
-      {/* Todo 輸入欄 */}
       <TodoHeader>
-        {/* <TodoHeaderInput></TodoHeaderInput> */}
         <input type="text" placeholder="請輸入代辦事項" value={value} onChange={handleInputChange} />
         <InputButton onClick={handleButtonClick}>新增</InputButton>
       </TodoHeader>
 
-      {/* 這裡分類分類 */}
       <TodoFilter>
         <FilterButton onClick={filterAll} >全部</FilterButton>
         <FilterButton onClick={filterUnDone} >未完成</FilterButton>
         <FilterButton onClick={filterDone} >已完成</FilterButton>
       </TodoFilter>
-      {/* Todo */}
       {todoList}
-      {/* 全部刪除 */}
       <TodoFooter>
         <DeleteAllButton onClick={handleDeleteAllTodo} >全部刪除</DeleteAllButton>
       </TodoFooter>
